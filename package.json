@@ -1,0 +1,78 @@
+{
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@9.14.2",
+  "proxy": "http://localhost:3000",
+  "scripts": {
+    "build": "vite-ssg build",
+    "dev": "vite --port 3333 --open",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "preview-https": "serve dist",
+    "test": "vitest",
+    "test:e2e": "cypress open",
+    "test:unit": "vitest",
+    "typecheck": "vue-tsc --noEmit",
+    "up": "taze major -I",
+    "postinstall": "npx simple-git-hooks",
+    "sizecheck": "npx vite-bundle-visualizer"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.23",
+    "@unhead/vue": "^1.11.13",
+    "@vueuse/core": "^12.0.0",
+    "@vueuse/head": "^2.0.0",
+    "axios": "^1.7.9",
+    "pinia": "^2.3.0",
+    "vue": "^3.5.13",
+    "vue-demi": "^0.14.10",
+    "vue-router": "^4.5.0",
+    "vue3-toastify": "^0.2.5"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.11.2",
+    "@iconify-json/carbon": "^1.2.4",
+    "@types/axios": "^0.14.4",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue-macros/volar": "^0.30.7",
+    "@vue/test-utils": "^2.4.6",
+    "critters": "^0.0.25",
+    "cross-env": "^7.0.3",
+    "cypress": "^13.16.1",
+    "cypress-vite": "^1.5.0",
+    "eslint": "^9.16.0",
+    "eslint-plugin-cypress": "^4.1.0",
+    "eslint-plugin-format": "^0.1.3",
+    "https-localhost": "^4.7.1",
+    "lint-staged": "^15.2.10",
+    "pnpm": "^9.15.0",
+    "rollup": "^4.28.1",
+    "simple-git-hooks": "^2.11.1",
+    "taze": "^0.18.0",
+    "typescript": "~5.6.3",
+    "unplugin-auto-import": "^0.18.6",
+    "unplugin-vue-components": "^0.27.5",
+    "unplugin-vue-macros": "^2.13.5",
+    "unplugin-vue-router": "^0.10.9",
+    "vite": "^6.0.3",
+    "vite-bundle-visualizer": "^1.2.1",
+    "vite-plugin-inspect": "^0.10.3",
+    "vite-plugin-vue-devtools": "^7.6.7",
+    "vite-plugin-vue-layouts": "^0.11.0",
+    "vite-plugin-webfont-dl": "^3.10.3",
+    "vite-ssg": "^0.24.2",
+    "vite-ssg-sitemap": "^0.8.1",
+    "vitest": "^2.1.8",
+    "vue-tsc": "^2.1.10"
+  },
+  "resolutions": {
+    "vite": "^6.0.1",
+    "vite-plugin-inspect": "^0.10.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
