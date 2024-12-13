@@ -14,9 +14,14 @@ const credentials = reactive<{ login: string, name: string, typeRegistration: 'e
   confirmPassword: '',
 })
 
+const isLoading = ref<boolean>(false)
+
 async function registerUser() {
+  isLoading.value = true
   if (credentials.login && credentials.name && credentials.password && credentials.confirmPassword) {
+    isLoading.value = true
     if (credentials.password === credentials.confirmPassword) {
+      isLoading.value = true
       await instance.post('/auth/register', {
         login: credentials.login,
         password: credentials.password,
@@ -25,15 +30,20 @@ async function registerUser() {
         toast.error(error.response?.data)
       })
 
+      isLoading.value = false
+
       toast.success('Helloo')
 
       router.push('/vhod')
     }
     else {
       toast.error('Пароли не совпали')
+      isLoading.value = false
     }
+    isLoading.value = false
   }
   else {
+    isLoading.value = false
     toast.error('Пожалуйста, заполните все пустые поля')
   }
 }
@@ -49,12 +59,14 @@ async function registerUser() {
             <span>Регистрация</span>
             <p>Также как начало повседневной работы по формированию</p>
           </div>
-          <input type="text" required placeholder="Ваше имя" v-model="credentials.name">
+          <input v-model="credentials.name" type="text" required placeholder="Ваше имя">
           <div class="register-type">
             <p>Выберите тип регистрации</p>
             <div class="register-type-container">
-              <div :class="credentials.typeRegistration === 'email' ? 'register-type-container-block-active' : ''"
-                class="register-type-container-block" @click="credentials.typeRegistration = 'email'">
+              <div
+                :class="credentials.typeRegistration === 'email' ? 'register-type-container-block-active' : ''"
+                class="register-type-container-block" @click="credentials.typeRegistration = 'email'"
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                   <path
                     d="M12.75 22.5C18.25 22.5 22.75 18 22.75 12.5C22.75 7 18.25 2.5 12.75 2.5C7.25 2.5 2.75 7 2.75 12.5C2.75 18 7.25 22.5 12.75 22.5Z"
@@ -64,8 +76,10 @@ async function registerUser() {
                 </svg>
                 Почта
               </div>
-              <div :class="credentials.typeRegistration === 'phone' ? 'register-type-container-block-active' : ''"
-                class="register-type-container-block" @click="credentials.typeRegistration = 'phone'">
+              <div
+                :class="credentials.typeRegistration === 'phone' ? 'register-type-container-block-active' : ''"
+                class="register-type-container-block" @click="credentials.typeRegistration = 'phone'"
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                   <path
                     d="M12.75 22.5C18.25 22.5 22.75 18 22.75 12.5C22.75 7 18.25 2.5 12.75 2.5C7.25 2.5 2.75 7 2.75 12.5C2.75 18 7.25 22.5 12.75 22.5Z"
@@ -77,11 +91,14 @@ async function registerUser() {
               </div>
             </div>
           </div>
-          <input required v-model="credentials.login" :type="credentials.typeRegistration === 'email' ? 'email' : 'tel'" :placeholder="credentials.typeRegistration === 'email' ? 'Ваша почта' : 'Ваш номер телефона'">
-          <input required type="password" placeholder="Пароль" v-model="credentials.password">
-          <input required type="password" placeholder="Подтвердите пароль" v-model="credentials.confirmPassword">
-          <button class="btn-register" type="submit" @click="() => registerUser()">
+          <input v-model="credentials.login" required :type="credentials.typeRegistration === 'email' ? 'email' : 'tel'" :placeholder="credentials.typeRegistration === 'email' ? 'Ваша почта' : 'Ваш номер телефона'">
+          <input v-model="credentials.password" required type="password" placeholder="Пароль">
+          <input v-model="credentials.confirmPassword" required type="password" placeholder="Подтвердите пароль">
+          <button class="btn-register" type="submit" :disabled="isLoading" @click="() => registerUser()">
             Регистрация
+            <div v-if="isLoading" style="margin-left: 10px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
+            </div>
           </button>
           <RouterLink to="/register">
             <button class="btn-register" type="button" style="background: #90a3bf">

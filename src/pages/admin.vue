@@ -69,7 +69,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="register">
+  <section class="register" style="min-height: 100vh;">
     <img src="/img/admin.png" alt="" class="bg-register">
     <div class="container">
       <div class="register-content admin-content">
