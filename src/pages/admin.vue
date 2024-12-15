@@ -297,21 +297,20 @@ onMounted(async () => {
               <textarea v-model="qrCodes[selectedQRCode].data.text.value" @input="(event) => { console.log(event) }" />
             </div>
           </div>
-          <!-- <div class="admin-container-right">
+          <div v-if="selectedQRCode !== null" class="admin-container-right">
             <div class="register-type">
               <p>Выберите тип обратной связи</p>
               <div class="register-type-container">
-                <div class="register-type-container-block register-type-container-block-active">
+                <button class="register-type-container-block" :class="qrCodes[selectedQRCode].data.feedbackType === 'email' ? 'register-type-container-block-active' : ''" @click="() => { selectedQRCode !== null ? qrCodes[selectedQRCode].data.feedbackType = 'email' : ''; return submitChanges({ data: { feedbackType: 'email' } }) }">
                   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                     <path
                       d="M12.75 22.5C18.25 22.5 22.75 18 22.75 12.5C22.75 7 18.25 2.5 12.75 2.5C7.25 2.5 2.75 7 2.75 12.5C2.75 18 7.25 22.5 12.75 22.5Z"
                       stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M8.5 12.5L11.33 15.33L17 9.67004" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round"></path>
+                    <path d="M8.5 12.5L11.33 15.33L17 9.67004" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                   </svg>
                   Почта
-                </div>
-                <div class="register-type-container-block">
+                </button>
+                <button class="register-type-container-block" :class="qrCodes[selectedQRCode].data.feedbackType === 'phone' ? 'register-type-container-block-active' : ''" @click="() => { selectedQRCode !== null ? qrCodes[selectedQRCode].data.feedbackType = 'phone' : ''; return submitChanges({ data: { feedbackType: 'phone' } }) }">
                   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                     <path
                       d="M12.75 22.5C18.25 22.5 22.75 18 22.75 12.5C22.75 7 18.25 2.5 12.75 2.5C7.25 2.5 2.75 7 2.75 12.5C2.75 18 7.25 22.5 12.75 22.5Z"
@@ -319,20 +318,19 @@ onMounted(async () => {
                     <path d="M8.5 12.5L11.33 15.33L17 9.67004" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                   </svg>
                   СМС
-                </div>
-                <div class="register-type-container-block">
+                </button>
+                <button class="register-type-container-block" :class="qrCodes[selectedQRCode].data.feedbackType === 'social' ? 'register-type-container-block-active' : ''" @click="() => { selectedQRCode !== null ? qrCodes[selectedQRCode].data.feedbackType = 'social' : ''; return submitChanges({ data: { feedbackType: 'social' } }) }">
                   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                     <path
                       d="M12.75 22.5C18.25 22.5 22.75 18 22.75 12.5C22.75 7 18.25 2.5 12.75 2.5C7.25 2.5 2.75 7 2.75 12.5C2.75 18 7.25 22.5 12.75 22.5Z"
                       stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M8.5 12.5L11.33 15.33L17 9.67004" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round"></path>
+                    <path d="M8.5 12.5L11.33 15.33L17 9.67004" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                   </svg>
                   Соц. сети
-                </div>
+                </button>
               </div>
             </div>
-            <div class="admin-block">
+            <!-- <div class="admin-block">
               <div class="radio">
                 <label class="custom-radio">
                   <input type="radio" name="color" value="indigo">
@@ -358,8 +356,8 @@ onMounted(async () => {
                   Сохранить
                 </button>
               </div>
-            </div>
-          </div> -->
+            </div> -->
+          </div>
         </div>
       </div>
     </div>
