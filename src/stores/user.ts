@@ -33,19 +33,24 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  function login(credentials: { login: string, password: string }) {
+  async function login(credentials: { login: string, password: string }) {
     if (!credentials.login && !credentials.password)
       return toast.error('Пожалуйста, заполните все пустые поля')
 
-    instance.post('/auth/login', credentials)
-      .then((response: AxiosResponse) => {
-        const data = response.data
-        setToken(data.token)
-        setUser(data)
-      })
-      .catch((error: AxiosError) => toast.error(error.response?.data))
+    try {
+      const response: AxiosResponse = await instance.post('/auth/login', credentials)
 
-    return true
+      const data = response.data
+      setToken(data.token)
+      setUser(data)
+
+      return true
+    }
+    catch (error: any) {
+      toast.error(error.response?.data)
+
+      throw new Error(error)
+    }
   }
 
   async function getMe() {

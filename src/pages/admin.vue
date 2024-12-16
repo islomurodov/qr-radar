@@ -294,7 +294,7 @@ onMounted(async () => {
                   <span>Отображать на странице</span>
                 </label>
               </div>
-              <textarea v-model="qrCodes[selectedQRCode].data.text.value" @input="(event) => { console.log(event) }" />
+              <textarea v-model="qrCodes[selectedQRCode].data.text.value" @input="(event: any) => submitChanges({ data: { text: { value: event.target.value } } })" />
             </div>
           </div>
           <div v-if="selectedQRCode !== null" class="admin-container-right">

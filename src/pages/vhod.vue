@@ -6,9 +6,15 @@ const router = useRouter()
 
 const userStore = useUserStore()
 
+const isLoading = ref<boolean>(false)
+
 const credentials = reactive<{ login: string, password: string }>({
   login: '',
   password: '',
+})
+
+onBeforeUnmount(() => {
+  isLoading.value = false
 })
 </script>
 
@@ -27,8 +33,11 @@ const credentials = reactive<{ login: string, password: string }>({
           </div>
           <input v-model="credentials.login" type="email" placeholder="Логин">
           <input v-model="credentials.password" type="password" placeholder="Пароль">
-          <button class="btn-register" type="submit" @click="() => { userStore.login(credentials); router.push('/admin') }">
+          <button class="btn-register" type="submit" @click="() => { isLoading = true; userStore.login(credentials); router.push('/admin') }">
             Войти
+            <div v-if="isLoading" style="margin-left: 10px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
+            </div>
           </button>
           <RouterLink to="/register">
             <button class="btn-register" type="button" style="background: #90a3bf">
