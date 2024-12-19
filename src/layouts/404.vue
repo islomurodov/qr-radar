@@ -3,15 +3,14 @@ const router = useRouter()
 </script>
 
 <template>
-  <main p="x4 y10" text="center gray-200">
-    <div text-4xl>
-      <div i-carbon-warning inline-block />
-    </div>
-    <RouterView />
+  <main style="width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center;">
     <div>
-      <button text-sm btn m="3 t8" @click="router.back()">
-        Back
-      </button>
+      <RouterView />
+      <div style="margin-top: 10px; text-align: center;">
+        <button style="padding: 5px 10px; border-radius: 5px; font-size: large;" @click="router.back()">
+          Назад
+        </button>
+      </div>
     </div>
   </main>
 </template>

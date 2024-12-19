@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    Not found
+    <h1>404 Не найдено</h1>
   </div>
 </template>
 

@@ -69,7 +69,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="register" style="min-height: 100vh;">
+  <section class="register">
     <img src="/img/admin.png" alt="" class="bg-register">
     <div class="container">
       <div class="register-content admin-content">
@@ -211,7 +211,7 @@ onMounted(async () => {
                 type="tel"
                 class="admin-block-input"
                 placeholder="Телефон"
-                @input="(event: any) => submitChanges({ data: { phone: { isPublic: event.target.value } } })"
+                @input="(event: any) => submitChanges({ data: { phone: { value: event.target.value } } })"
               >
             </div>
             <div class="admin-block">

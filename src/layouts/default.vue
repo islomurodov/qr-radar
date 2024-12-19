@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main style="min-height: 100vh;">
     <RouterView />
   </main>
 </template>
